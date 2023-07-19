@@ -1,0 +1,16 @@
+package egovframework.example.sample.service.impl;
+
+import org.springframework.stereotype.Repository;
+
+import egovframework.example.sample.service.EmpVO;
+import egovframework.rte.psl.dataaccess.EgovAbstractDAO;
+
+@Repository("empDAO")
+public class EmpDAO extends EgovAbstractDAO {
+	
+	public String inserDept(EmpVO vo) throws Exception {
+		return (String) insert("deptDAO.insertDept", vo);
+	}
+
+	
+}

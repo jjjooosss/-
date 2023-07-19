@@ -1,0 +1,81 @@
+package egovframework.example.sample.web;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import egovframework.example.sample.service.EmpService;
+import egovframework.example.sample.service.EmpVO;
+import egovframework.example.sample.service.SampleDefaultVO;
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+import lombok.extern.slf4j.Slf4j;
+
+@Controller
+@Slf4j
+public class EmpController {
+	
+	@Resource(name = "empService")
+	private EmpService empService;
+	
+	@RequestMapping(value = "/empWrite.do")
+	public String empWrite() {
+		return "emp/empWrite";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/empWriteSave.do")
+	public String empWriteSave(EmpVO vo) throws Exception {
+		String result = empService.insertEmp(vo);
+		log.info("@# result ===>"+ result);
+		
+		return "forward:/empList.do";
+	}
+	
+	@RequestMapping(value = "/empList.do")
+	public String selectEmpList(EmpVO vo, ModelMap model) throws Exception {
+
+		List<?> list = empService.selectEmpList(vo);
+		model.addAttribute("resultList", list);
+
+		return "emp/empList";
+	}
+	
+	@RequestMapping(value = "/empDetail.do")
+	public String selectEmpDetail(int empno, ModelMap model) throws Exception {
+		
+		EmpVO vo = empService.selectEmpDetail(empno);
+		model.addAttribute("empVO", vo);
+		
+		return "emp/empDetail";
+	}
+	
+	@RequestMapping(value = "/empDelete.do")
+	public String deleteEmp(int empno) throws Exception {
+		
+		empService.deleteEmp(empno);
+		
+		return "forward:/empList.do";
+	}
+	@RequestMapping(value = "/empUpdate.do")
+	public String updateEmp(int empno, ModelMap model) throws Exception {
+		
+		EmpVO vo = empService.selectEmpDetail(empno);
+		model.addAttribute("empVO", vo);
+		
+		return "emp/empUpdate";
+	}
+	
+	@RequestMapping(value = "/empUpdateSave.do")
+	public String updateEmpSave(EmpVO vo) throws Exception {
+		
+		empService.updateEmp(vo);
+		
+		return "forward:/empList.do";
+	}
+}

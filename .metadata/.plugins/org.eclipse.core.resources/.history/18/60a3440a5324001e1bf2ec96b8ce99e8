@@ -1,0 +1,37 @@
+package egovframework.example.sample.web;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import egovframework.example.sample.service.ItemService;
+import egovframework.example.sample.service.impl.ItemVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Controller
+@Slf4j
+public class ItemController {
+	
+	@Resource(name = "itemService")
+	private ItemService itemService;
+	
+	@RequestMapping(value = "/itemList.do")
+	public String itemList() throws Exception {
+		List<?> list = itemService.item
+		return "item/itemList";
+	}
+	
+	@RequestMapping(value = "/itemWrite.do")
+	public String itemWrite() throws Exception{
+		return "item/itemWrite";
+	}
+	
+	@RequestMapping(value = "/itemWriteSave.do")
+	public String itemWriteSave(ItemVO vo) throws Exception {
+		itemService.itemWrite(vo);
+		return "forward:/itemList.do";
+	}
+}

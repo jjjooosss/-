@@ -1,0 +1,25 @@
+package egovframework.example.sample.service.impl;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Service;
+
+import egovframework.example.sample.service.EmpService;
+import egovframework.example.sample.service.EmpVO;
+import egovframework.example.sample.service.EgovSampleService;
+import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
+
+
+@Service("empService")
+public class EmpServiceImpl extends EgovAbstractServiceImpl implements EmpService {
+
+//	@Resource(name = "deptDAO") : deptDAO 이름으로 dao 사용(ibatis방식, mybatis는 매퍼)
+	@Resource(name = "deptDAO")
+	private EmpDAO deptDAO;
+	
+	@Override
+	public String insertDept(EmpVO vo) throws Exception {
+		return deptDAO.inserDept(vo);
+	}
+	
+}

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- <sqlMap namespace="Sample"> -->
+<sqlMap namespace="Member">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="MemberVO" type="egovframework.example.sample.service.MemberVO"/>
+
+	<insert id="memDAO.insertMem">
+		<![CDATA[
+			INSERT INTO emp 
+					(empno    
+					,ename   
+					,deptno  
+					)
+			VALUES ( #empno#
+				  , #ename#
+				  , #deptno# )
+		]]>
+	</insert>
+	
+	
+	<select id="empDAO.selectEmp" resultClass="MemberVO">
+<!-- 	자동으로 null처리해줌 -->
+<!-- 	<select id="empDAO.selectEmp" resultClass="egovMap"> -->
+        <![CDATA[
+            SELECT
+                empno    
+				,ename   
+				,job     
+				,mgr     
+				,hiredate
+				,sal     
+				,comm    
+				,deptno  
+            FROM emp 
+        ]]>
+    </select>
+    
+<!-- 	<select id="empDAO.selectDetailEmp" resultClass="egovMap"> -->
+	<select id="empDAO.selectDetailEmp" resultClass="empVO">
+        <![CDATA[
+            SELECT
+                empno    
+				,ename   
+				,job     
+				,nvl(mgr,0)     
+				,hiredate
+				,nvl(sal,0)     
+				,nvl(comm,0)    
+				,nvl(deptno,0)  
+            FROM emp 
+            WHERE empno=#empno#
+        ]]>
+    </select>
+   
+   	<delete id="empDAO.empDelete">
+        <![CDATA[
+            DELETE FROM emp 
+            WHERE empno=#empno#
+        ]]>
+    </delete>
+    
+    <update id="empDAO.updateEmp">
+		<![CDATA[
+			UPDATE emp
+			SET ename=#ename#
+				, job=#job#
+			WHERE empno=#empno#
+		]]>
+	</update>
+    
+
+</sqlMap>

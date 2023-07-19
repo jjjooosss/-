@@ -1,0 +1,8 @@
+package egovframework.example.sample.service;
+
+import java.util.HashMap;
+
+public interface MemberService {
+    int loginOk(MemberVO vo);
+    void register(MemberVO vo);
+}

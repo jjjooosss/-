@@ -1,0 +1,10 @@
+package egovframework.example.sample.service;
+
+import java.util.List;
+
+import egovframework.example.sample.service.impl.ItemVO;
+
+public interface ItemService {
+	String itemWrite(ItemVO vo) throws Exception;
+	List<?> itemWriteSave(ItemVO vo) throws Exception;
+}

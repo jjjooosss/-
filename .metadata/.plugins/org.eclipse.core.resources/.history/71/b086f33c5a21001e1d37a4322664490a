@@ -1,0 +1,6 @@
+package egovframework.example.sample.service;
+
+public interface DeptService {
+//	접근 지정자 없으므로 default임
+	String insertDept(EmpVO vo) throws Exception;
+}

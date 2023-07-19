@@ -1,0 +1,8 @@
+package egovframework.example.sample.service;
+
+public class DeptVO {
+	private int deptno;
+	private String dname;
+	private String loc;
+	
+}

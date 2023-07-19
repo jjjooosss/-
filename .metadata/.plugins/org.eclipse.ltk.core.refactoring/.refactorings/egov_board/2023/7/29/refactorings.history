@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;egov_board/src/main/resources/egovframework/sqlmap/Dept_SQL.xml&apos; to &apos;Board_SQL.xml&apos;" description="Rename resource &apos;Dept_SQL.xml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/resources/egovframework/sqlmap/Dept_SQL.xml" name="Board_SQL.xml" stamp="1689736681619" updateReferences="true"/>
+</session>

@@ -1,0 +1,10 @@
+package egovframework.example.sample.service;
+
+import java.util.List;
+
+public interface EmpService {
+//	접근 지정자 없으므로 default임
+	String insertEmp(EmpVO vo) throws Exception;
+	List<?> selectEmpList(EmpVO vo) throws Exception;
+	EmpVO selectDetail(int deptno) throws Exception;
+}

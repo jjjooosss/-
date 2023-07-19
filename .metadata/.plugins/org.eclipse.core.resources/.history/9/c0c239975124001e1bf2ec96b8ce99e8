@@ -1,0 +1,28 @@
+package egovframework.example.sample.web;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Controller
+@Slf4j
+public class ItemController {
+	
+	@RequestMapping(value = "/itemList.do")
+	public String itemList() {
+		return "item/itemList";
+	}
+	
+	@RequestMapping(value = "/itemWrite.do")
+	public String itemWrite() {
+		return "dept/itemWrite";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/itemWriteSave.do")
+	public String itemWriteSave(ItemVO vo) {
+		
+		return "forward:/itemList.do";
+	}
+}

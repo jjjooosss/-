@@ -1,0 +1,13 @@
+package egovframework.example.sample.service;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+public class EmpVO {
+	private int deptno;
+	private String dname;
+	private String loc;
+	
+}

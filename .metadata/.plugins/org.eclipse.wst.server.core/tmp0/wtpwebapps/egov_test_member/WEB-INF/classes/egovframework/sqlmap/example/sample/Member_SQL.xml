@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="Member">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="memberVO" type="egovframework.example.sample.service.MemberVO"/>
+   
+    
+	<insert id="memberDAO.insertMember">
+		<![CDATA[
+			 insert into mvc_member values(#mem_uid#,#mem_pwd#,#mem_name#)
+		]]>
+	</insert>
+	
+	
+	<select id="memberDAO.selectMember" resultClass="memberVO">
+<!-- 	자동으로 null처리해줌 -->
+<!-- 	<select id="empDAO.selectEmp" resultClass="egovMap"> -->
+        <![CDATA[
+           select mem_pwd from mvc_member where mem_uid =#mem_uid#
+        ]]>
+    </select>
+    
+</sqlMap>

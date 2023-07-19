@@ -1,0 +1,18 @@
+package egovframework.example.sample.service;
+
+import lombok.Getter;
+import lombok.Setter;
+
+@Setter
+@Getter
+public class EmpVO {
+	private int empno;
+	private String ename;
+	private int deptno;
+	private int job;
+//	null값 불러올수있게 integer로 감쌈
+	private Integer mgr;
+	private int hiredate;
+	private int sal;
+	private Integer comm;
+}

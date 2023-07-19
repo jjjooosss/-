@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="egov_dept">
+        <property name="context-root" value="egov_dept"/>
+        <property name="java-output-path" value="/egov_dept/build/classes"/>
+    </wb-module>
+</project-modules>

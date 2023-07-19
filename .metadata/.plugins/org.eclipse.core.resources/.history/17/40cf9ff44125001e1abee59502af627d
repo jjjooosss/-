@@ -1,0 +1,65 @@
+package egovframework.example.sample.web;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.support.SessionStatus;
+
+import egovframework.example.sample.service.CodeService;
+import egovframework.example.sample.service.CodeVO;
+import egovframework.example.sample.service.SampleDefaultVO;
+import egovframework.example.sample.service.SampleVO;
+import lombok.extern.slf4j.Slf4j;
+
+@Controller
+@Slf4j
+public class CodeController {
+	
+	@Resource(name="codeService")
+	private CodeService codeService;
+	
+	@RequestMapping(value = "/codeWrite.do")
+	public String codeWrite() {
+		log.info("-----controller codeWriteView-----");
+		return "code/codeWrite";
+	}
+	
+	@RequestMapping(value = "codeWriteSave.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String codeWriteSave(CodeVO vo) throws Exception {
+		log.info("-----controller saveCode-----");
+		String result = codeService.insertCode(vo);
+//		정상적으로 insert시 null
+		log.info("@#@#===>result"+result);
+		
+		return "code Save Ok";
+	}
+	
+	@RequestMapping(value = "/codeList.do", method = RequestMethod.GET)
+	public String selectCodeList(CodeVO vo, ModelMap model) throws Exception{
+		log.info("-----controller codeList-----");
+		
+		List<?> list = codeService.selectCodeList(vo);
+		model.addAttribute("resultList",list);
+		log.info("code@@@@@@@@@@@@@@@@"+list.get(0));
+		
+		int total = codeService.selectCount();
+		model.addAttribute("total",total);
+		
+		return "code/codeList";
+	}
+	
+
+	@RequestMapping("/deleteCode.do")
+	public String deleteCode(CodeVO vo) throws Exception{
+		codeService.deleteCode(vo);
+		return "forward:/codeList.do";
+	}
+}

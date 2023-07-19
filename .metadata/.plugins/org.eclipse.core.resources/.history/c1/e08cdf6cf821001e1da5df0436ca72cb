@@ -1,0 +1,66 @@
+package egovframework.example.sample.web;
+
+import java.util.List;
+
+import javax.annotation.Resource;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import egovframework.example.sample.service.EmpService;
+import egovframework.example.sample.service.EmpVO;
+import egovframework.example.sample.service.SampleDefaultVO;
+import egovframework.rte.ptl.mvc.tags.ui.pagination.PaginationInfo;
+import lombok.extern.slf4j.Slf4j;
+
+@Controller
+@Slf4j
+public class EmpController {
+	
+	@Resource(name = "empService")
+	private EmpService empService;
+	
+	@RequestMapping(value = "/empWrite.do")
+	public String empWrite() {
+		return "emp/empWrite";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/empWriteSave.do")
+	public String empWriteSave(EmpVO vo) throws Exception {
+		String result = empService.insertEmp(vo);
+		log.info("@# result ===>"+ result);
+		
+		return "save!";
+	}
+	
+	@RequestMapping(value = "/empList.do")
+	public String selectSampleList(@ModelAttribute("searchVO") SampleDefaultVO searchVO, ModelMap model) throws Exception {
+
+		/** EgovPropertyService.sample */
+		searchVO.setPageUnit(propertiesService.getInt("pageUnit"));
+		searchVO.setPageSize(propertiesService.getInt("pageSize"));
+
+		/** pageing setting */
+		PaginationInfo paginationInfo = new PaginationInfo();
+		paginationInfo.setCurrentPageNo(searchVO.getPageIndex());
+		paginationInfo.setRecordCountPerPage(searchVO.getPageUnit());
+		paginationInfo.setPageSize(searchVO.getPageSize());
+
+		searchVO.setFirstIndex(paginationInfo.getFirstRecordIndex());
+		searchVO.setLastIndex(paginationInfo.getLastRecordIndex());
+		searchVO.setRecordCountPerPage(paginationInfo.getRecordCountPerPage());
+
+		List<?> sampleList = sampleService.selectSampleList(searchVO);
+		model.addAttribute("resultList", sampleList);
+
+		int totCnt = sampleService.selectSampleListTotCnt(searchVO);
+		paginationInfo.setTotalRecordCount(totCnt);
+		model.addAttribute("paginationInfo", paginationInfo);
+
+		return "sample/egovSampleList";
+	}
+}

@@ -1,0 +1,21 @@
+package egovframework.example.sample.service.impl;
+
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import egovframework.rte.psl.dataaccess.EgovAbstractDAO;
+
+@Repository("itemDAO")
+public class ItemDAO extends EgovAbstractDAO {
+
+	public String itemWrite(ItemVO vo) throws Exception {
+		return (String) insert("itemDao.itemWrite", vo);
+	}
+	
+	public List<?> selectItemList(ItemVO vo) throws Exception {
+		return list("itemDao.itemList", vo);
+	}
+	
+	
+}

@@ -1,0 +1,6 @@
+package egovframework.example.sample.service;
+
+public interface EmpService {
+//	접근 지정자 없으므로 default임
+	String insertEmp(EmpVO vo) throws Exception;
+}

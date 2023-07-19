@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<!-- <sqlMap namespace="Sample"> -->
+<!-- 고유한 이름, 안에서 사용하진 않는다 -->
+<sqlMap namespace="Dept">
+
+   <typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+   <!-- type="" : 리턴타입 alias="deptVO" 로 받아서 처리 -->
+   <typeAlias  alias="deptVO" type="egovframework.example.sample.service.DeptVO"/>
+
+
+<!-- 	deptDAO.insertDept : dao에서 호출되는 이름과 매칭 -->
+   <insert id="deptDAO.insertDept">
+<!--    		##: dao에서 넘어오는 vo -->
+<!--    		"deptDAO.insertDept", vo -->
+      <![CDATA[
+         INSERT INTO dept 
+            (deptno
+            ,dname
+            ,loc )
+         VALUES ( 
+         	 #deptno#
+            ,#dname#
+            ,#loc# )
+      ]]>
+   </insert>
+	
+		
+	 <select id="deptDAO.selectDept" resultClass="deptVO">
+        <![CDATA[
+            SELECT
+                deptno, dname, loc
+            FROM dept 
+        ]]>
+    </select>
+
+		
+	 <select id="deptDAO.selectDeptDetail" resultClass="deptVO">
+        <![CDATA[
+            SELECT
+                deptno, dname, loc
+            FROM dept 
+            WHERE deptno=#deptno#
+        ]]>
+    </select>
+    
+    <delete id="deptDAO.deleteDept">
+		<![CDATA[
+			DELETE FROM dept 
+			WHERE deptno=#deptno#
+		]]>
+	</delete>
+	
+</sqlMap>
